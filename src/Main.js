@@ -1,9 +1,9 @@
 let gameConfig = {
-    type: Phaser.CANVAS,
+    type: Phaser.AUTO,
     width: 1000,
-    height: 768,
+    height: 500,
     pixelArt: true,
-    backgroundColor: '#000000',
+    backgroundColor: '#111111',
     parent: 'game',
     physics: {
         default: 'arcade',
