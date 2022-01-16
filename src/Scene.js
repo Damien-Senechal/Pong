@@ -20,6 +20,15 @@ class Scene extends Phaser.Scene{
         this.balle.body.setBounce(1,1);
         this.balle.body.setAllowGravity(false)
 
+        this.gauche = this.physics.add.sprite(20, this.hauteur/2, 'square').setOrigin(0, 0)
+        this.gauche.setDisplaySize(20, 100)
+        this.gauche.body.setAllowGravity(false)
+        this.gauche.setImmovable(true);
+        this.droite = this.physics.add.sprite(this.largeur-40, this.hauteur/2, 'square').setOrigin(0, 0)
+        this.droite.setDisplaySize(20, 100)
+        this.droite.setImmovable(true);
+        this.droite.body.setAllowGravity(false)
+
         this.haut = this.physics.add.sprite(0, 0, 'square').setOrigin(0, 0)
         this.haut.setDisplaySize(this.largeur, 20)
         this.haut.body.setAllowGravity(false)
@@ -31,8 +40,76 @@ class Scene extends Phaser.Scene{
 
         this.physics.add.collider(this.balle, this.bas)
         this.physics.add.collider(this.balle, this.haut)
+        this.physics.add.collider(this.balle, this.droite)
+        this.physics.add.collider(this.balle, this.gauche)
         this.balle.setVelocity(this.speedX, this.speedY)
         this.balle.setMaxVelocity(this.maxspeed,this.maxspeed)
+
+        this.initKeyboard()
+    }
+
+    initKeyboard() {
+        let me = this;
+        this.input.keyboard.on('keydown', function (kevent) {
+            switch (kevent.keyCode) {
+                case Phaser.Input.Keyboard.KeyCodes.A:
+                    if(me.gauche.y <= 20){
+                        me.gauche.setVelocityY(0)
+                    }
+                    else{
+                        me.gauche.setVelocityY(-200)
+                    }
+                    break;
+
+                case Phaser.Input.Keyboard.KeyCodes.Q:
+                    if(me.gauche.y >= 370){
+                        me.gauche.setVelocityY(0)
+                    }
+                    else{
+                        me.gauche.setVelocityY(200)
+                    }
+                    break;
+
+                case Phaser.Input.Keyboard.KeyCodes.P:
+                    if(me.droite.y <= 20){
+                        me.droite.setVelocityY(0)
+                    }
+                    else{
+                        me.droite.setVelocityY(-200)
+                    }
+                    break;
+
+                case Phaser.Input.Keyboard.KeyCodes.M:
+                    if(me.droite.y >= 370){
+                        me.droite.setVelocityY(0)
+                    }
+                    else{
+                        me.droite.setVelocityY(200)
+                    }
+                    break;
+
+            }
+        })
+        this.input.keyboard.on('keyup', function (kevent) {
+            switch (kevent.keyCode) {
+                case Phaser.Input.Keyboard.KeyCodes.A:
+                    me.gauche.setVelocityY(0)
+                    break;
+
+                case Phaser.Input.Keyboard.KeyCodes.Q:
+                    me.gauche.setVelocityY(0)
+                    break;
+
+                case Phaser.Input.Keyboard.KeyCodes.P:
+                    me.droite.setVelocityY(0)
+                    break;
+
+                case Phaser.Input.Keyboard.KeyCodes.M:
+                    me.droite.setVelocityY(0)
+                    break;
+
+            }
+        })
     }
 
     update()
