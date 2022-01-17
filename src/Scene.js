@@ -40,12 +40,28 @@ class Scene extends Phaser.Scene{
 
         this.physics.add.collider(this.balle, this.bas)
         this.physics.add.collider(this.balle, this.haut)
-        this.physics.add.collider(this.balle, this.droite)
+
+        let me = this;
+        this.physics.add.collider(this.balle, this.droite, function () {
+            console.log("touche droite")
+            me.rebond(me.droite);
+        })
         this.physics.add.collider(this.balle, this.gauche)
+
+        this.physics.add.collider(this.droite, this.haut)
+        this.physics.add.collider(this.droite, this.bas)
+        this.physics.add.collider(this.gauche, this.haut)
+        this.physics.add.collider(this.gauche, this.bas)
+
         this.balle.setVelocity(this.speedX, this.speedY)
         this.balle.setMaxVelocity(this.maxspeed,this.maxspeed)
 
         this.initKeyboard()
+    }
+
+    rebond(raquette){
+        console.log(raquette.y)
+        
     }
 
     initKeyboard() {
@@ -57,7 +73,7 @@ class Scene extends Phaser.Scene{
                         me.gauche.setVelocityY(0)
                     }
                     else{
-                        me.gauche.setVelocityY(-200)
+                        me.gauche.setVelocityY(-350)
                     }
                     break;
 
@@ -66,25 +82,23 @@ class Scene extends Phaser.Scene{
                         me.gauche.setVelocityY(0)
                     }
                     else{
-                        me.gauche.setVelocityY(200)
+                        me.gauche.setVelocityY(350)
                     }
                     break;
 
                 case Phaser.Input.Keyboard.KeyCodes.P:
                     if(me.droite.y <= 20){
                         me.droite.setVelocityY(0)
-                    }
-                    else{
-                        me.droite.setVelocityY(-200)
+                    }else{
+                        me.droite.setVelocityY(-350)
                     }
                     break;
 
                 case Phaser.Input.Keyboard.KeyCodes.M:
                     if(me.droite.y >= 370){
                         me.droite.setVelocityY(0)
-                    }
-                    else{
-                        me.droite.setVelocityY(200)
+                    }else{
+                        me.droite.setVelocityY(350)
                     }
                     break;
 
@@ -118,7 +132,12 @@ class Scene extends Phaser.Scene{
             this.balle.x = this.largeur/2
             this.balle.y = this.hauteur/2
             this.speedX = 0
-            this.balle.setVelocity(500*Phaser.Math.Between(-1,1))
+            let dir = Phaser.Math.Between(-1,1)
+            if(dir === 0){
+                this.balle.setVelocity(500)
+            }else{
+                this.balle.setVelocity(500*dir)
+            }
             this.balle.setVelocityY(Phaser.Math.Between(-500, 500))
         }
         console.log(this.balle.body.velocity)
