@@ -4,11 +4,26 @@
     <meta charset="UTF-8">
     <title>SENECHAL Damien</title>
     <meta name="description" content="Un Pong">
+    <link rel="stylesheet" href="src/main.css">
 </head>
 <body style="background-color: #000000;">
+<div id="scoresL">
+    <div id ="joueurGauche">
+        <div class="name">...</div>
+        <div class="score">...</div>
+    </div>
+</div>
+<div id="scoresR">
+    <div id ="joueurDroite">
+        <div class="name">...</div>
+        <div class="score">...</div>
+    </div>
+</div>
+<br><br><br><br><br><br><br>
 <div id="game" style = "margin-bottom: 10px;display: flex;justify-content: center;align-items: center;min-height: 70vh;">
     <script type="text/javascript" src="lib/phaser.js"></script>
     <script type="text/javascript" src="src/Scene.js"></script>
+    <script type="text/javascript" src="src/Joueur.js"></script>
     <script type="text/javascript" src="src/Main.js"></script>
 </div>
 <div style="text-align: center">
