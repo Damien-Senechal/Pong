@@ -267,7 +267,7 @@ class Scene extends Phaser.Scene{
         positionRelativePlayers= (positionRelativePlayers / hauteurPlayers)
         positionRelativePlayers = positionRelativePlayers*2-1;
 
-        this.balle.setVelocityY(this.balle.body.velocity.y + positionRelativePlayers * 50);
+        this.balle.setVelocityY(this.balle.body.velocity.y + positionRelativePlayers * 200);
 
     }
 
@@ -300,6 +300,23 @@ class Scene extends Phaser.Scene{
         }
         this.player1.y += this.player1Speed
         this.player2.y += this.player2Speed
+
+        if(this.player1.y>=this.hauteur-70){
+            this.player1Speed = 0
+            this.player1.y = this.hauteur-70
+        }
+        if(this.player2.y>=this.hauteur-70){
+            this.player2Speed = 0
+            this.player2.y = this.hauteur-70
+        }
+        if(this.player1.y<=70){
+            this.player1Speed = 0
+            this.player1.y = 70
+        }
+        if(this.player2.y<=70){
+            this.player2Speed = 0
+            this.player2.y = 70
+        }
     }
 
     initKeyboard(){
@@ -307,40 +324,16 @@ class Scene extends Phaser.Scene{
         this.input.keyboard.on('keydown', function (kevent) {
             switch (kevent.keyCode) {
                 case Phaser.Input.Keyboard.KeyCodes.S:
-                    if(me.player1.y<=20){
-                        me.player1Speed = 0
-                        me.player1.y = 20
-                    }
-                    else{
-                        me.player1Speed = -5
-                    }
+                    me.player1Speed = -5
                     break;
                 case Phaser.Input.Keyboard.KeyCodes.X:
-                    if(me.player1.y>=me.hauteur-120){
-                        me.player1Speed = 0
-                        me.player1.y = me.hauteur-120
-                    }
-                    else{
-                        me.player1Speed = 5
-                    }
+                    me.player1Speed = 5
                     break;
                 case Phaser.Input.Keyboard.KeyCodes.J:
-                    if(me.player2.y<=20){
-                        me.player2Speed = 0
-                        me.player2.y = 20
-                    }
-                    else{
-                        me.player2Speed = -5
-                    }
+                    me.player2Speed = -5
                     break;
                 case Phaser.Input.Keyboard.KeyCodes.N:
-                    if(me.player2.y>=me.hauteur-120){
-                        me.player2Speed = 0
-                        me.player2.y = me.hauteur-120
-                    }
-                    else{
-                        me.player2Speed = 5
-                    }
+                    me.player2Speed = 5
                     break;
             }
         });
