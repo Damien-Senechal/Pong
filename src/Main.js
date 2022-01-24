@@ -3,7 +3,7 @@ let gameConfig = {
     width: 1000,
     height: 500,
     pixelArt: true,
-    backgroundColor: '#111111',
+    backgroundColor: '#ffffff',
     parent: 'game',
     physics: {
         default: 'arcade',
