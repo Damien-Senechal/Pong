@@ -183,10 +183,10 @@ class Scene extends Phaser.Scene{
         this.largeur = 1000
         this.speedX = 0
         while(this.speedX===0){
-            this.speedX = 5000*Phaser.Math.Between(-1,1)
+            this.speedX = 500*Phaser.Math.Between(-1,1)
         }
-        this.speedY = Phaser.Math.Between(-5000, 5000)
-        this.maxspeed = 5000
+        this.speedY = Phaser.Math.Between(-500, 500)
+        this.maxspeed = 500
 
         this.balle = this.physics.add.sprite(this.largeur/2, this.hauteur/2, 'ball')
         this.balle.setDisplaySize(20, 20)
@@ -267,7 +267,7 @@ class Scene extends Phaser.Scene{
         positionRelativePlayers= (positionRelativePlayers / hauteurPlayers)
         positionRelativePlayers = positionRelativePlayers*2-1;
 
-        this.balle.setVelocityY(this.balle.body.velocity.y + positionRelativePlayers * 200);
+        this.balle.setVelocityY(this.balle.body.velocity.y + positionRelativePlayers * 50);
 
     }
 
@@ -276,7 +276,7 @@ class Scene extends Phaser.Scene{
         this.balle.y = this.hauteur/2
         this.speedX = 0
 
-        this.balle.setVelocityX(Math.random()>0.5?-400:400)
+        this.balle.setVelocityX(Math.random()>0.5?-500:500)
         this.balle.setVelocityY(0)
     }
 
