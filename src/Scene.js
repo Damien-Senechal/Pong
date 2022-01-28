@@ -13,16 +13,10 @@ class Scene extends Phaser.Scene{
     }
 
     create(){
-        this.menu = this.add.image(0, 0, 'menu').setOrigin(0, 0)
-
-        let me = this;
-        this.input.keyboard.on('keydown-ENTER', function () {
-            me.Start()
-        })
+        this.Start()
     }
 
     update(){
-        if(this.start) {
             if (this.ball.x > this.largeur) {
                 this.win(this.joueurGauche);
             }
@@ -48,7 +42,6 @@ class Scene extends Phaser.Scene{
                 this.player2.speed = 0
                 this.player2.y = 20
             }
-        }
     }
 
     Start(){
@@ -67,10 +60,10 @@ class Scene extends Phaser.Scene{
             this.player1 = new Racket(this, 50, 360, 'playerL')
             this.player2 = new Racket(this, 930, 360, 'playerR')
 
+            this.initKeyboard()
             this.createCollision()
             this.updateScore()
             this.balleAucentre();
-            this.initKeyboard()
     }
 
     initVariables(){
@@ -158,32 +151,32 @@ class Scene extends Phaser.Scene{
         this.input.keyboard.on('keydown', function (kevent) {
             switch (kevent.keyCode) {
                 case Phaser.Input.Keyboard.KeyCodes.S:
-                    me.player1Speed = -5
+                    me.player1.speed = -5
                     break;
                 case Phaser.Input.Keyboard.KeyCodes.X:
-                    me.player1Speed = 5
+                    me.player1.speed = 5
                     break;
                 case Phaser.Input.Keyboard.KeyCodes.J:
-                    me.player2Speed = -5
+                    me.player2.speed = -5
                     break;
                 case Phaser.Input.Keyboard.KeyCodes.N:
-                    me.player2Speed = 5
+                    me.player2.speed = 5
                     break;
             }
         });
         this.input.keyboard.on('keyup', function (kevent) {
             switch (kevent.keyCode) {
                 case Phaser.Input.Keyboard.KeyCodes.S:
-                    me.player1Speed = 0
+                    me.player1.speed = 0
                     break;
                 case Phaser.Input.Keyboard.KeyCodes.X:
-                    me.player1Speed = 0
+                    me.player1.speed = 0
                     break;
                 case Phaser.Input.Keyboard.KeyCodes.J:
-                    me.player2Speed = 0
+                    me.player2.speed = 0
                     break;
                 case Phaser.Input.Keyboard.KeyCodes.N:
-                    me.player2Speed = 0
+                    me.player2.speed = 0
                     break;
             }
         });

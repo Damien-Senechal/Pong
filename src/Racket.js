@@ -11,8 +11,7 @@ class Racket extends Phaser.Physics.Arcade.Sprite {
     //Constructeur de Wall
     constructor (scene, x, y, texture) {
         //On appelle le constructeur parent avec super
-        super(scene, x, y);
-        this.texture = texture;
+        super(scene, x, y, texture);
         this._speed = 0
 
         //On ajoute le sprite et ça physique a la scene
