@@ -268,7 +268,6 @@ class Scene extends Phaser.Scene{
         positionRelativePlayers = positionRelativePlayers*2-1;
 
         this.balle.setVelocityY(this.balle.body.velocity.y + positionRelativePlayers * 50);
-
     }
 
     balleAucentre(){
@@ -353,6 +352,8 @@ class Scene extends Phaser.Scene{
                     break;
             }
         });
+
+
     }
 }
 
