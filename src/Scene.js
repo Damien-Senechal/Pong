@@ -9,14 +9,45 @@ class Scene extends Phaser.Scene{
         this.load.image('ground','assets/GROUND.png');
         this.load.image('haut','assets/HAUT.png');
         this.load.image('bas','assets/BAS.png');
+        this.load.image('menu', 'assets/StartScreen.png');
     }
 
     create(){
-        if(this.start){
-            this.Start()
-        }
-        else{
+        this.menu = this.add.image(0, 0, 'menu').setOrigin(0, 0)
 
+        let me = this;
+        this.input.keyboard.on('keydown-ENTER', function () {
+            me.Start()
+        })
+    }
+
+    update(){
+        if(this.start) {
+            if (this.ball.x > this.largeur) {
+                this.win(this.joueurGauche);
+            }
+            if (this.ball.x < 0) {
+                this.win(this.joueurDroite);
+            }
+            this.player1.y += this.player1.speed
+            this.player2.y += this.player2.speed
+
+            if (this.player1.y >= 380) {
+                this.player1.speed = 0
+                this.player1.y = 380
+            }
+            if (this.player2.y >= 380) {
+                this.player2.speed = 0
+                this.player2.y = 380
+            }
+            if (this.player1.y <= 20) {
+                this.player1.speed = 0
+                this.player1.y = 20
+            }
+            if (this.player2.y <= 20) {
+                this.player2.speed = 0
+                this.player2.y = 20
+            }
         }
     }
 
@@ -30,29 +61,14 @@ class Scene extends Phaser.Scene{
 
             //Creation des murs avec la classe Wall
             this.haut = new Wall(this, 0, 0, 'haut')
-            this.bas = new Wall(this, 0, 480, 'bas')
+            this.bas = new Wall(this, 0, this.hauteur-20, 'bas')
 
             //Creation des joueurs avec la classe Player
             this.player1 = new Racket(this, 50, 360, 'playerL')
             this.player2 = new Racket(this, 930, 360, 'playerR')
 
             this.createCollision()
-
-            if (this.ball < 0) {
-                this.scoreplayer2 += 1;
-                this.textplayer1.setText('Player 1 = ' + this.scoreplayer1);
-            }
-
-            if (this.ball > this.largeur) {
-                this.scoreplayer1 += 1;
-                this.textplayer2.setText('Player 2 = ' + this.scoreplayer2);
-            }
-
-
-            this.joueurGauche = new Joueur('RED', 'joueurGauche')
-            this.joueurDroite = new Joueur('BLUE', 'joueurDroite')
-            console.log(this.joueurGauche)
-
+            this.updateScore()
             this.balleAucentre();
             this.initKeyboard()
     }
@@ -61,6 +77,21 @@ class Scene extends Phaser.Scene{
         this.hauteur = 500
         this.largeur = 1000
         this.maxspeed = 500
+    }
+
+    updateScore(){
+        if (this.ball < 0) {
+            this.scoreplayer2 += 1;
+            this.textplayer1.setText('Player 1 = ' + this.scoreplayer1);
+        }
+
+        if (this.ball > this.largeur) {
+            this.scoreplayer1 += 1;
+            this.textplayer2.setText('Player 2 = ' + this.scoreplayer2);
+        }
+
+        this.joueurGauche = new Joueur('RED', 'joueurGauche')
+        this.joueurDroite = new Joueur('BLUE', 'joueurDroite')
     }
 
     createCollision(){
@@ -120,34 +151,6 @@ class Scene extends Phaser.Scene{
         joueur.score ++;
         //alert('Le score est de '+this.joueurGauche.score+' a '+this.joueurDroite.score)
         this.balleAucentre();
-    }
-
-    update(){
-        if(this.ball.x>this.largeur){
-            this.win(this.joueurGauche);
-        }
-        if(this.ball.x<0){
-            this.win(this.joueurDroite);
-        }
-        this.player1.y += this.player1.speed
-        this.player2.y += this.player2.speed
-
-        if(this.player1.y>=380){
-            this.player1.speed = 0
-            this.player1.y = 380
-        }
-        if(this.player2.y>=380){
-            this.player2.speed = 0
-            this.player2.y = 380
-        }
-        if(this.player1.y<=20){
-            this.player1.speed = 0
-            this.player1.y = 20
-        }
-        if(this.player2.y<=20){
-            this.player2.speed = 0
-            this.player2.y = 20
-        }
     }
 
     initKeyboard(){
